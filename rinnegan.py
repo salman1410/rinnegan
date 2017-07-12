@@ -40,13 +40,14 @@ def main():
         cloud = "http://api.hackertarget.com/dnslookup/?q=" + target
         r_cloud = urlopen(cloud).read()
         if 'cloudflare' in r_cloud:
-            print "[+] CLOUDFLARE DETECTED"
+            print "\n[+]CLOUDFLARE DETECTED"
         else:
-            print "[-] CLOUDFLARE NOT DETECTED"
+            print "\n[-]CLOUDFLARE NOT DETECTED"
     if option == '4':
         target = raw_input('\nenter target url or ip~: ')
         header = "http://api.hackertarget.com/httpheaders/?q=" + target
         r_header = urlopen(header).read()
+	print"\n"
         print (r_header)
 
 try:
