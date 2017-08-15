@@ -1,54 +1,46 @@
-#!/usr/bin/python
-############################
-#         rinnegan         #
-# developed by SALMAN ASAD #
-#  github.com/salman1410/  #
-############################
-
-from urllib2 import *
+import os
+import io
+from urllib import *
 
 print \
 """
-          _                                   
-    _____(_)___  ____  ___  ____ _____ _____  
-   / ___/ / __ \/ __ \/ _ \/ __ `/ __ `/ __ \ 
-  / /  / / / / / / / /  __/ /_/ / /_/ / / / / 
- /_/  /_/_/ /_/_/ /_/\___/\__, /\__,_/_/ /_/  
-                         /____/               
-        https://github.com/salman1410         
+          _
+    _____(_)___  ____  ___  ____  _____ _____
+   / ___/ / __ \/ __ \/ _ \/ __ `/ __ `/ __ |
+  / /  / / / / / / / /  __/ /_/ / /_/ / / / /
+ /_/  /_/_/ /_/_/ /_/\___/\__, /\__,_/_/ /_/
+                         /____/
+        https://github.com/salman1410
 
-[1] Whois Lookup
-[2] DNS Lookup
-[3] Cloudflare Detector
-[4] HTTP Header Grabber
+[1] whois lookup
+[2] dns lookup
+[3] nmap portscan
+[4] robots.txt grabber
 """
 
 def main():
-    option = raw_input('\nchoose from available options~:  ')
-    if option == '1':
-        target = raw_input('\nenter target url or ip~: ')
-        whois = "http://api.hackertarget.com/whois/?q=" + target
-        r_whois = urlopen(whois).read()
-        print (r_whois)
-    if option == '2':
-        target = raw_input('\nenter target url or ip~: ')
-        dns = "http://api.hackertarget.com/dnslookup/?q=" + target
-        r_dns = urlopen(dns).read()
-        print (r_dns)
-    if option == '3':
-        target = raw_input('\nenter target url or ip~: ')
-        cloud = "http://api.hackertarget.com/dnslookup/?q=" + target
-        r_cloud = urlopen(cloud).read()
-        if 'cloudflare' in r_cloud:
-            print "\n[+]CLOUDFLARE DETECTED"
-        else:
-            print "\n[-]CLOUDFLARE NOT DETECTED"
-    if option == '4':
-        target = raw_input('\nenter target url or ip~: ')
-        header = "http://api.hackertarget.com/httpheaders/?q=" + target
-        r_header = urlopen(header).read()
-	print"\n"
-        print (r_header)
+    x = raw_input('enter your choice:~# ')
+    url = raw_input('enter target ip or domain:~# ')
+    if x=='1':
+        cmd="whois " + url
+        prcs=os.popen(cmd)
+        who=str(prcs.read())
+        print(who)
+    if x=='2':
+        cmd="nslookup " + url
+        prcs=os.popen(cmd)
+        dns=str(prcs.read())
+        print(dns)
+    if x=='3':
+        cmd="nmap " + url
+        prcs=os.popen(cmd)
+        nmap=str(prcs.read())
+        print(nmap)
+    if x=='4':
+        link = url+'/'
+        req=urlopen(link+"robots.txt", data=None)
+        data = io.TextIOWrapper(req, encoding='utf-8')
+        print(data.read())
 
 try:
 	main()
